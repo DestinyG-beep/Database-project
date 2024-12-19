@@ -1,11 +1,13 @@
-from db import create_connection
+class Client:
+    def __init__(self, id, name, email):
+        self.id = id
+        self.name = name
+        self.email = email
 
-def new_client(name, email, freelancer_id):
-    conn = create_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO freelancers (freelancer_id, name, email) VALUES (?, ?, ?)",
-        (freelancer_id, name, email),
-    )
-    conn.commit()
-    conn.close()
+    def make_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+        }
+        
