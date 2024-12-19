@@ -31,3 +31,22 @@ class Invoice:
             self.status = "paid"
             self.paid_at = datetime.now()
             
+    @staticmethod
+    def create_invoice(project_id, amount):
+        conn = create_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO invoices (project_id, amount) VALUES (?, ?)", (project_id, amount))
+        conn.commit()
+        invoice_id = cursor.lastrowid
+        conn.close()
+        return Invoice(invoice_id, project_id, amount)
+    
+    @staticmethod
+    def delete_invoice(invoice_id):
+        conn = create_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM invoices WHERE id = ?", (invoice_id,))
+        conn.commit()
+        deleted_rows = cursor.rowcount
+        conn.close()
+        return deleted_rows > 0
