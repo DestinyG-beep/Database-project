@@ -35,7 +35,7 @@ def create_tables(conn):
 
         # SQL statements to create tables
         tables = {
-            "freelancers": """
+            "freelancer": """
                 CREATE TABLE IF NOT EXISTS freelancers (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
@@ -50,7 +50,6 @@ def create_tables(conn):
                  name TEXT NOT NULL,
                  email TEXT NOT NULL UNIQUE,
                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                 FOREIGN KEY (freelancer_id) REFERENCES freelancers (id) ON DELETE CASCADE
                 );
             """,
             "projects": """
