@@ -1,4 +1,5 @@
 from datetime import datetime
+from db import create_connection
 
 class Invoice:
     VALID_STATUSES = ["unpaid", "paid"]

@@ -33,7 +33,7 @@ def create_tables(conn):
     try:
         cursor = conn.cursor()
 
-        # SQL statements to create tables
+        
         tables = {
             "freelancer": """
                 CREATE TABLE IF NOT EXISTS freelancers (
@@ -46,7 +46,6 @@ def create_tables(conn):
             "clients": """
                CREATE TABLE IF NOT EXISTS clients (
                  id INTEGER PRIMARY KEY AUTOINCREMENT,
-                 freelancer_id INTEGER NOT NULL,
                  name TEXT NOT NULL,
                  email TEXT NOT NULL UNIQUE,
                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -77,7 +76,6 @@ def create_tables(conn):
             """
         }
 
-        # Execute each table creation statement
         for table_name, create_sql in tables.items():
             print(f"Creating table {table_name}...")
             cursor.execute(create_sql)
@@ -89,12 +87,12 @@ def create_tables(conn):
 
 
 if __name__ == "__main__":
-    # Create database file if it doesn't exist
+    
     db_file_path = Path(DB_FILE)
     if not db_file_path.exists():
         print(f"Database file {DB_FILE} does not exist. Creating a new one...")
 
-    # Connect to the database and initialize tables
+    
     connection = create_connection()
     if connection:
         create_tables(connection)
