@@ -53,6 +53,7 @@ def create_tables(conn):
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     client_id INTEGER NOT NULL,
                     title TEXT NOT NULL,
+                    name TEXT NOT NULL,
                     description TEXT,
                     status TEXT DEFAULT 'ongoing',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
