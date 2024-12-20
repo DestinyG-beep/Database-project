@@ -1,66 +1,95 @@
 import click
 from models.Client import Client
 from models.Project import Project
-from models.Invoice import Invoice
 from db import create_connection
+from tabulate import tabulate #this is a library that helps to display data in a tabular format, making the data visually appealing.
 
 
 @click.group()
 def cli():
-    """Freelancer Job Tracker CLI"""
+    """Freelancer Job Tracker - A command-line tool to manage clients, projects, and invoices."""
     pass
 
-@cli.command()
-@click.argument('name')
-@click.argument('email')
+
+#-- CLIENT COMMANDS --#
+@cli.group()
+def client():
+    """Manage clients."""
+    pass
+
+
+@client.command("add")
+@click.option('--name', prompt="Client name", help="The name of the client.")
+@click.option('--email', prompt="Client email", help="The email of the client.")
 def add_client(name, email):
-    """Add a new client"""
-    client = Client.create_client(name, email)
-    click.echo(f"Added client: {client.make_dict()}")
-
-@cli.command()
-@click.argument('client_id', type=int)
-@click.argument('title')
-@click.argument('description')
-def add_project(client_id, title, description):
-    """Add a new project"""
-    project = Project(None, client_id, title, description).save_to_db()
-    click.echo(f"Added project: {project}")
-
-@cli.command()
-@click.argument('project_id', type=int)
-@click.argument('amount', type=float)
-def add_invoice(project_id, amount):
-    """Add a new invoice"""
-    invoice = Invoice.create_invoice(project_id, amount)
-    click.echo(f"Added invoice: {invoice.make_invoice_dict()}")
-
-@cli.command()
-def list_clients():
-    """List all clients"""
+    """Add a new client."""
     conn = create_connection()
-    clients = Client.get_all_clients(conn)
-    for client in clients:
-        click.echo(client.make_dict())
-    conn.close()
+    client = Client.create_client(name, email)
+    print(f"Client added successfully: {client}")
 
-@cli.command()
+
+@client.command("list")
+def list_clients():
+    """List all clients."""
+    conn = create_connection()
+    clients = Client.get_all_clients()
+    if clients:
+        print("\nClients:")
+        print(tabulate([c.make_dict() for c in clients], headers="keys"))
+    else:
+        print("No clients found.")
+
+
+@client.command("delete")
+@click.argument('client_id', type=int)
+def delete_client(client_id):
+    """Delete a client by ID."""
+    conn = create_connection()
+    Client.delete_client(client_id)
+    print(f"Client with ID {client_id} deleted successfully.")
+
+
+# -- PROJECT COMMANDS -- #
+@cli.group()
+def project():
+    """Manage projects."""
+    pass
+
+
+@project.command("add")
+@click.option('--name', prompt="Project name", help="The name of the project.")
+@click.option('--description', prompt="Project description", help="The description of the project.")
+@click.option('--client_id', prompt="Client ID", type=int, help="The ID of the client.")
+def add_project(name, description, client_id):
+    """Add a new project."""
+    conn = create_connection()
+    project = Project(name, description, client_id)
+    project.save_to_db(conn)
+    print(f"Project '{name}' added successfully!")
+
+
+@project.command("list")
 def list_projects():
-    """List all projects"""
+    """List all projects."""
     conn = create_connection()
     projects = Project.get_all_projects(conn)
-    for project in projects:
-        click.echo(project)
-    conn.close()
+    if projects:
+        print("\nProjects:")
+        print(tabulate(projects, headers=["ID", "Name", "Description", "Client ID", "Status"]))
+    else:
+        print("No projects found.")
 
-@cli.command()
-def list_invoices():
-    """List all invoices"""
+
+@project.command("update-status")
+@click.argument('project_id', type=int)
+@click.option('--status', prompt="New status", type=click.Choice(['ongoing', 'completed'], case_sensitive=False))
+def update_project_status(project_id, status):
+    """Update a project's status."""
     conn = create_connection()
-    invoices = Invoice.get_all_invoices(conn)
-    for invoice in invoices:
-        click.echo(invoice.make_invoice_dict())
-    conn.close()
+    Project.update_status(project_id, status, conn)
+    print(f"Project {project_id} status updated to '{status}' successfully.")
 
+
+# -- MAIN ENTRY POINT -- #
 if __name__ == "__main__":
     cli()
