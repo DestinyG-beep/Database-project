@@ -52,7 +52,6 @@ def create_tables(conn):
                 CREATE TABLE IF NOT EXISTS projects (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     client_id INTEGER NOT NULL,
-                    title TEXT NOT NULL,
                     name TEXT NOT NULL,
                     description TEXT,
                     status TEXT DEFAULT 'ongoing',
