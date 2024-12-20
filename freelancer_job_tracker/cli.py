@@ -52,7 +52,7 @@ def main():
                     clients = Client.get_all_clients()
                     if clients:
                         print("\nClients:")
-                        print(tabulate([c.make_dict() for c in clients], headers="keys"))
+                        print(tabulate([c.make_dict() for c in clients], headers="keys")) #this is dealing with the tabulate library
                     else:
                         print("No clients found.")
 
@@ -90,13 +90,15 @@ def main():
                     projects = Project.get_all_projects()
                     if projects:
                         print("\nProjects:")
+                        # Ensure the field order matches the headers
                         project_data = [
-                        [project.id, project.name, project.description, project.client_id, project.status]
-                        for project in projects
+                            [project.id, project.name, project.description, project.client_id, project.status]
+                            for project in projects
                         ]
                         print(tabulate(project_data, headers=["ID", "Name", "Description", "Client ID", "Status"]))
                     else:
                         print("No projects found.")
+
 
 
                 elif project_choice == "3":  # Update Project Status
