@@ -31,10 +31,11 @@ Before running the project, ensure the following are installed on your system:
 ---
 
 ## Installation
+you will need to fork this repository first 
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:DestinyG-beep/Database-project.git
    cd Freelancer-Job-Tracker
    ```
 
