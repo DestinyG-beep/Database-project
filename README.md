@@ -46,8 +46,8 @@ you will need to fork this repository first .Be sure to mind every step in the i
    ```
 
 3. **At this point you have the option to run this application from your terminal or to use it in your code editor.**
-     If you do not want to go to your editor . just continue to the next step of the instructrions
-     If you want to open it in your editor write this in your terminal
+     If you do not want to go to your editor . just continue to the next step of the instructrions.
+     If you want to open it in your editor write this in your terminal;
       ```bash
    code .
    ```
@@ -58,7 +58,7 @@ you will need to fork this repository first .Be sure to mind every step in the i
    pipenv install
    ```
 
-5. **In the terminal of either your editor or your virtual environment, set up the working environment for this application
+5. **In the terminal of either your editor or your virtual environment, set up the working environment for this application;
     ```bash
    pipenv shell
    ```
