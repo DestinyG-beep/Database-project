@@ -40,22 +40,35 @@ you will need to fork this repository first .Be sure to mind every step in the i
 
    ```
 
-2. **This file that you have cloned is comprised of the README.md and the (freelancer_job_tracker) that holds all the project files, ie; it is a file within a file. For this project to work, you will need to go into that file**
+2. **This file that you have cloned is comprised of the README.md and the (freelancer_job_tracker) that holds all the project files, ie; it is a folder within a folder. For this project to work, you will need to go into that folder**
    ```bash
    cd freelancer_job_tracker
    ```
 
-3. **Install Dependencies:**
+3. **At this point you have the option to run this application from your terminal or to use it in your code editor.**
+     If you do not want to go to your editor . just continue to the next step of the instructrions
+     If you want to open it in your editor write this in your terminal
+      ```bash
+   code .
+   ```
+   or however you do to open your terminal
+    
+4. **Install Dependencies:**
    ```bash
    pipenv install
    ```
 
-4. **Initialize the Database:**
+5. **In the terminal of either your editor or your virtual environment, set up the working environment for this application
+    ```bash
+   pipenv shell
+   ```
+
+6. **Initialize the Database:**
    Run the `db.py` script to create the necessary SQLite database and tables:
    ```bash
    python db.py
    ```
-   This will create a `freelancer_tracker.db` file in the project directory.
+   This will create a `freelancer_tracker.db` file in the project directory.If you do not notice any changes , do not worry since the file is already in the folder
 
 ---
 
