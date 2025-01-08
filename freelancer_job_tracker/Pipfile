@@ -6,12 +6,10 @@ name = "pypi"
 [packages]
 click = "*"
 tabulate = "*"
-sqlite3 = "*"  # For database connection (comes with Python but included for clarity)
 
 [dev-packages]
-# Add dev dependencies like linters or testing libraries here, e.g.,:
-pytest = "*"  # For testing your project
-flake8 = "*"  # For linting your code
+pytest = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.8"
