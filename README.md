@@ -36,26 +36,21 @@ you will need to fork this repository first .Be sure to mind every step in the i
 1. **Clone the Repository:**
    ```bash
    git clone git@github.com:DestinyG-beep/Database-project.git
-   cd Freelancer-Job-Tracker
+   cd Database-project
+
    ```
 
-2. **Set Up a Virtual Environment (Optional):**
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate  # On Linux/Mac
-   .venv\Scripts\activate    # On Windows
-   ```
-3. **This file that you have cloned is comprised of the README.md and the freelancer_job_tracker that holds all the project files ie; it is a file within a file. For this project to work, you will need to go into that file**
+2. **This file that you have cloned is comprised of the README.md and the (freelancer_job_tracker) that holds all the project files, ie; it is a file within a file. For this project to work, you will need to go into that file**
    ```bash
    cd freelancer_job_tracker
    ```
 
-4. **Install Dependencies:**
+3. **Install Dependencies:**
    ```bash
    pipenv install
    ```
 
-5. **Initialize the Database:**
+4. **Initialize the Database:**
    Run the `db.py` script to create the necessary SQLite database and tables:
    ```bash
    python db.py
