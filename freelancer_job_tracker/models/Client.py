@@ -12,9 +12,9 @@ class Client:
             "name": self.name,
             "email": self.email,
         }
-    
-    @staticmethod
-    def create_client(name, email):
+
+    @classmethod
+    def create_client(cls, name, email):
         """
         Creates a new client in the database and returns a Client object.
         """
@@ -29,10 +29,10 @@ class Client:
 
         conn.close()
         # Return the Client object with the generated ID
-        return Client(client_id, name, email)
-                
-    @staticmethod
-    def get_all_clients():
+        return cls(client_id, name, email)  # Use 'cls' to create an instance of the class
+
+    @classmethod
+    def get_all_clients(cls):
         """
         Fetches all clients from the database and returns a list of Client objects.
         """
@@ -42,10 +42,10 @@ class Client:
         rows = cursor.fetchall()
         conn.close()
         # Create Client objects for each row
-        return [Client(*row) for row in rows]
-            
-    @staticmethod
-    def delete_client(client_id):
+        return [cls(*row) for row in rows]  # Use 'cls' to create instances of the class
+
+    @classmethod
+    def delete_client(cls, client_id):
         """
         Deletes a client by ID.
         """

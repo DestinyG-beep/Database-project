@@ -1,10 +1,8 @@
 import sqlite3
 from db import create_connection
 
-
 class Project:
     def __init__(self, id=None, name=None, description=None, client_id=None, status='ongoing'):
-        
         self.id = id
         self.name = name
         self.description = description
@@ -12,11 +10,11 @@ class Project:
         self.status = status
 
     # Create the 'projects' table
-    @staticmethod
-    def create_table():
+    @classmethod
+    def create_table(cls):
         conn = create_connection()
         cursor = conn.cursor()
-        cursor.execute('''
+        cursor.execute(''' 
             CREATE TABLE IF NOT EXISTS projects (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -32,7 +30,7 @@ class Project:
     def save_to_db(self):
         conn = create_connection()
         cursor = conn.cursor()
-        cursor.execute('''
+        cursor.execute(''' 
             INSERT INTO projects (name, description, client_id, status)
             VALUES (?, ?, ?, ?)
         ''', (self.name, self.description, self.client_id, self.status))
@@ -40,33 +38,33 @@ class Project:
         conn.close()
 
     # Fetch all projects
-    @staticmethod
-    def get_all_projects():
+    @classmethod
+    def get_all_projects(cls):
         conn = create_connection()
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM projects')
         rows = cursor.fetchall()
         conn.close()
         return [
-            Project(id=row[0], name=row[1], description=row[2], client_id=row[3], status=row[4])
+            cls(id=row[0], name=row[1], description=row[2], client_id=row[3], status=row[4])
             for row in rows
         ]
 
     # Fetch a project by its ID
-    @staticmethod
-    def get_project_by_id(project_id):
+    @classmethod
+    def get_project_by_id(cls, project_id):
         conn = create_connection()
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM projects WHERE id = ?', (project_id,))
         row = cursor.fetchone()
         conn.close()
         if row:
-            return Project(id=row[0], name=row[1], description=row[2], client_id=row[3], status=row[4])
+            return cls(id=row[0], name=row[1], description=row[2], client_id=row[3], status=row[4])
         return None
 
     # Delete a project by its ID
-    @staticmethod
-    def delete_project(project_id):
+    @classmethod
+    def delete_project(cls, project_id):
         conn = create_connection()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM projects WHERE id = ?', (project_id,))
@@ -74,11 +72,11 @@ class Project:
         conn.close()
 
     # Update the status of a project
-    @staticmethod
-    def update_status(project_id, new_status):
+    @classmethod
+    def update_status(cls, project_id, new_status):
         conn = create_connection()
         cursor = conn.cursor()
-        cursor.execute('''
+        cursor.execute(''' 
             UPDATE projects
             SET status = ?
             WHERE id = ?
